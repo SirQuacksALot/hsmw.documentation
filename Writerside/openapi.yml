@@ -1,0 +1,2554 @@
+openapi: 3.0.3
+info:
+  title: Astra-Service
+  version: dev-0.0.0
+  description: HSMWmobil interactive app service
+paths:
+  /canteen/images/:
+    get:
+      operationId: canteen_images_list
+      description: |-
+        Create or Delete images for reviews.
+        Note: uploader is taken from the authenticated user (session -> later with JWT).
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ImageList'
+          description: ''
+    post:
+      operationId: canteen_images_create
+      description: |-
+        Create or Delete images for reviews.
+        Note: uploader is taken from the authenticated user (session -> later with JWT).
+      tags:
+      - canteen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Image'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Image'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Image'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+          description: ''
+  /canteen/images/{id}/:
+    delete:
+      operationId: canteen_images_destroy
+      description: |-
+        Create or Delete images for reviews.
+        Note: uploader is taken from the authenticated user (session -> later with JWT).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this canteen image.
+        required: true
+      tags:
+      - canteen
+      responses:
+        '204':
+          description: No response body
+  /canteen/images/upload/:
+    post:
+      operationId: canteen_images_upload_create
+      description: |-
+        Create or Delete images for reviews.
+        Note: uploader is taken from the authenticated user (session -> later with JWT).
+      tags:
+      - canteen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Image'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Image'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Image'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+          description: ''
+  /canteen/leaderboard/:
+    get:
+      operationId: canteen_leaderboard_retrieve
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /canteen/leaderboard/join/:
+    post:
+      operationId: canteen_leaderboard_join_create
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - canteen
+      responses:
+        '200':
+          description: No response body
+  /canteen/leaderboard/leave/:
+    post:
+      operationId: canteen_leaderboard_leave_create
+      description: |-
+        Leave leadboard by setting is_participation to False or on purge, delete it.
+
+        Query Params:
+            - `pruge`: boolean - will delete participation object of user
+      tags:
+      - canteen
+      responses:
+        '200':
+          description: No response body
+  /canteen/leaderboard/settings/:
+    get:
+      operationId: canteen_leaderboard_settings_retrieve
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - canteen
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: canteen_leaderboard_settings_partial_update
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - canteen
+      responses:
+        '200':
+          description: No response body
+  /canteen/menus/:
+    get:
+      operationId: canteen_menus_list
+      description: |-
+        CRUD for canteen menus ==> used to sync or test local dishes
+        Optional filter: ?canteen_id=<external-id>
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Menu'
+          description: ''
+    post:
+      operationId: canteen_menus_create
+      description: |-
+        CRUD for canteen menus ==> used to sync or test local dishes
+        Optional filter: ?canteen_id=<external-id>
+      tags:
+      - canteen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Menu'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Menu'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Menu'
+      security:
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+          description: ''
+  /canteen/menus/{id}/:
+    get:
+      operationId: canteen_menus_retrieve
+      description: |-
+        CRUD for canteen menus ==> used to sync or test local dishes
+        Optional filter: ?canteen_id=<external-id>
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this canteen menu.
+        required: true
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+          description: ''
+    put:
+      operationId: canteen_menus_update
+      description: |-
+        CRUD for canteen menus ==> used to sync or test local dishes
+        Optional filter: ?canteen_id=<external-id>
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this canteen menu.
+        required: true
+      tags:
+      - canteen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Menu'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Menu'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Menu'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+          description: ''
+    patch:
+      operationId: canteen_menus_partial_update
+      description: |-
+        CRUD for canteen menus ==> used to sync or test local dishes
+        Optional filter: ?canteen_id=<external-id>
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this canteen menu.
+        required: true
+      tags:
+      - canteen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedMenu'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedMenu'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedMenu'
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+          description: ''
+    delete:
+      operationId: canteen_menus_destroy
+      description: |-
+        CRUD for canteen menus ==> used to sync or test local dishes
+        Optional filter: ?canteen_id=<external-id>
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this canteen menu.
+        required: true
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '204':
+          description: No response body
+  /canteen/plan/:
+    get:
+      operationId: canteen_plan_retrieve
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /canteen/reviews/:
+    get:
+      operationId: canteen_reviews_list
+      description: Ensure absolute URLs for imagePaths (via request context).
+      parameters:
+      - name: cursor
+        required: false
+        in: query
+        description: The pagination cursor value.
+        schema:
+          type: string
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedReviewList'
+          description: ''
+    post:
+      operationId: canteen_reviews_create
+      description: |-
+        CRUD for canteen reviews.
+
+        Query params:
+          - canteen_id: external canteen menu id (string). Filters list to a specific dish instance.
+
+        Rules:
+          - One review per user per menu enforced by DB UniqueConstraint.
+          - When listing, show the current user's review first (if any), then newest first.
+      tags:
+      - canteen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /canteen/reviews/{id}/:
+    get:
+      operationId: canteen_reviews_retrieve
+      description: |-
+        CRUD for canteen reviews.
+
+        Query params:
+          - canteen_id: external canteen menu id (string). Filters list to a specific dish instance.
+
+        Rules:
+          - One review per user per menu enforced by DB UniqueConstraint.
+          - When listing, show the current user's review first (if any), then newest first.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    put:
+      operationId: canteen_reviews_update
+      description: |-
+        CRUD for canteen reviews.
+
+        Query params:
+          - canteen_id: external canteen menu id (string). Filters list to a specific dish instance.
+
+        Rules:
+          - One review per user per menu enforced by DB UniqueConstraint.
+          - When listing, show the current user's review first (if any), then newest first.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - canteen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Review'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Review'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Review'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    patch:
+      operationId: canteen_reviews_partial_update
+      description: |-
+        CRUD for canteen reviews.
+
+        Query params:
+          - canteen_id: external canteen menu id (string). Filters list to a specific dish instance.
+
+        Rules:
+          - One review per user per menu enforced by DB UniqueConstraint.
+          - When listing, show the current user's review first (if any), then newest first.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - canteen
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedReview'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+    delete:
+      operationId: canteen_reviews_destroy
+      description: |-
+        CRUD for canteen reviews.
+
+        Query params:
+          - canteen_id: external canteen menu id (string). Filters list to a specific dish instance.
+
+        Rules:
+          - One review per user per menu enforced by DB UniqueConstraint.
+          - When listing, show the current user's review first (if any), then newest first.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - canteen
+      responses:
+        '204':
+          description: No response body
+  /canteen/reviews/summary/:
+    get:
+      operationId: canteen_reviews_summary_retrieve
+      description: 'Return {"average": float, "count": int} for given canteen_id/menu_id.'
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+          description: ''
+  /canteen/summary/:
+    get:
+      operationId: canteen_summary_retrieve
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - canteen
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /club-events/:
+    get:
+      operationId: club_events_list
+      tags:
+      - club-events
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClubEvent'
+          description: ''
+    post:
+      operationId: club_events_create
+      tags:
+      - club-events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClubEvent'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClubEvent'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ClubEvent'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClubEvent'
+          description: ''
+  /club-events/{id}/:
+    get:
+      operationId: club_events_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this club event.
+        required: true
+      tags:
+      - club-events
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClubEvent'
+          description: ''
+    put:
+      operationId: club_events_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this club event.
+        required: true
+      tags:
+      - club-events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClubEvent'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ClubEvent'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ClubEvent'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClubEvent'
+          description: ''
+    patch:
+      operationId: club_events_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this club event.
+        required: true
+      tags:
+      - club-events
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedClubEvent'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedClubEvent'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedClubEvent'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClubEvent'
+          description: ''
+    delete:
+      operationId: club_events_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this club event.
+        required: true
+      tags:
+      - club-events
+      responses:
+        '204':
+          description: No response body
+  /groups/:
+    get:
+      operationId: groups_list
+      parameters:
+      - in: query
+        name: group_type
+        schema:
+          type: string
+          enum:
+          - automatic
+          - manual
+        description: |-
+          * `manual` - Manual
+          * `automatic` - Automatic
+      - in: query
+        name: name
+        schema:
+          type: string
+      - in: query
+        name: search
+        schema:
+          type: string
+      tags:
+      - groups
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UniversityGroupDetail'
+          description: ''
+    post:
+      operationId: groups_create
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityGroupBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UniversityGroupBody'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UniversityGroupBody'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityGroupBody'
+          description: ''
+  /groups/{id}/:
+    get:
+      operationId: groups_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this university group.
+        required: true
+      tags:
+      - groups
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityGroupDetail'
+          description: ''
+    put:
+      operationId: groups_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this university group.
+        required: true
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityGroupBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UniversityGroupBody'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UniversityGroupBody'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityGroupBody'
+          description: ''
+    patch:
+      operationId: groups_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this university group.
+        required: true
+      tags:
+      - groups
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUniversityGroupBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUniversityGroupBody'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUniversityGroupBody'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityGroupBody'
+          description: ''
+    delete:
+      operationId: groups_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this university group.
+        required: true
+      tags:
+      - groups
+      responses:
+        '204':
+          description: No response body
+  /login/:
+    post:
+      operationId: login_create
+      tags:
+      - login
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /logout/:
+    post:
+      operationId: logout_create
+      tags:
+      - logout
+      responses:
+        '200':
+          description: No response body
+  /logout-everywhere/:
+    post:
+      operationId: logout_everywhere_create
+      tags:
+      - logout-everywhere
+      responses:
+        '200':
+          description: No response body
+  /moderation/bans/:
+    get:
+      operationId: moderation_bans_list
+      description: List / retrieve / create / update bans.
+      parameters:
+      - in: query
+        name: active
+        schema:
+          type: boolean
+      - in: query
+        name: app_label
+        schema:
+          type: string
+      - in: query
+        name: model
+        schema:
+          type: string
+      - in: query
+        name: object_id
+        schema:
+          type: string
+      - in: query
+        name: reason
+        schema:
+          type: number
+      - in: query
+        name: scope
+        schema:
+          type: number
+      - in: query
+        name: until_gt
+        schema:
+          type: string
+          format: date-time
+      - in: query
+        name: until_lt
+        schema:
+          type: string
+          format: date-time
+      tags:
+      - moderation
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContentBan'
+          description: ''
+    post:
+      operationId: moderation_bans_create
+      description: List / retrieve / create / update bans.
+      tags:
+      - moderation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentBan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContentBan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContentBan'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentBan'
+          description: ''
+  /moderation/bans/{id}/:
+    get:
+      operationId: moderation_bans_retrieve
+      description: List / retrieve / create / update bans.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this content ban.
+        required: true
+      tags:
+      - moderation
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentBan'
+          description: ''
+    put:
+      operationId: moderation_bans_update
+      description: List / retrieve / create / update bans.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this content ban.
+        required: true
+      tags:
+      - moderation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentBan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContentBan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContentBan'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentBan'
+          description: ''
+    patch:
+      operationId: moderation_bans_partial_update
+      description: List / retrieve / create / update bans.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this content ban.
+        required: true
+      tags:
+      - moderation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedContentBan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedContentBan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedContentBan'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentBan'
+          description: ''
+  /moderation/reports/:
+    get:
+      operationId: moderation_reports_list
+      description: List / retrieve / create reports.
+      parameters:
+      - in: query
+        name: app_label
+        schema:
+          type: string
+      - in: query
+        name: content
+        schema:
+          type: string
+      - in: query
+        name: has_active_ban
+        schema:
+          type: boolean
+      - in: query
+        name: model
+        schema:
+          type: string
+      - in: query
+        name: object_id
+        schema:
+          type: string
+      - in: query
+        name: reporter
+        schema:
+          type: number
+      - in: query
+        name: status
+        schema:
+          type: string
+      tags:
+      - moderation
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContentReport'
+          description: ''
+    post:
+      operationId: moderation_reports_create
+      description: List / retrieve / create reports.
+      tags:
+      - moderation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContentReport'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ContentReport'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ContentReport'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentReport'
+          description: ''
+  /moderation/reports/{id}/:
+    get:
+      operationId: moderation_reports_retrieve
+      description: List / retrieve / create reports.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this content report.
+        required: true
+      tags:
+      - moderation
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContentReport'
+          description: ''
+  /permissions/me/:
+    get:
+      operationId: permissions_me_retrieve
+      tags:
+      - permissions
+      responses:
+        '200':
+          description: No response body
+  /permissions/objects/:
+    get:
+      operationId: permissions_objects_list
+      tags:
+      - permissions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ObjectPermission'
+          description: ''
+    post:
+      operationId: permissions_objects_create
+      tags:
+      - permissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ObjectPermission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ObjectPermission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ObjectPermission'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectPermission'
+          description: ''
+  /permissions/objects/{id}/:
+    get:
+      operationId: permissions_objects_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this object permission.
+        required: true
+      tags:
+      - permissions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectPermission'
+          description: ''
+    put:
+      operationId: permissions_objects_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this object permission.
+        required: true
+      tags:
+      - permissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ObjectPermission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ObjectPermission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ObjectPermission'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectPermission'
+          description: ''
+    patch:
+      operationId: permissions_objects_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this object permission.
+        required: true
+      tags:
+      - permissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedObjectPermission'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedObjectPermission'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedObjectPermission'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ObjectPermission'
+          description: ''
+    delete:
+      operationId: permissions_objects_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this object permission.
+        required: true
+      tags:
+      - permissions
+      responses:
+        '204':
+          description: No response body
+  /permissions/views/:
+    get:
+      operationId: permissions_views_list
+      tags:
+      - permissions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ViewPermission'
+          description: ''
+    post:
+      operationId: permissions_views_create
+      tags:
+      - permissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewPermissionBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ViewPermissionBody'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ViewPermissionBody'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewPermissionBody'
+          description: ''
+  /permissions/views/{id}/:
+    get:
+      operationId: permissions_views_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this view permission.
+        required: true
+      tags:
+      - permissions
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewPermission'
+          description: ''
+    put:
+      operationId: permissions_views_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this view permission.
+        required: true
+      tags:
+      - permissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ViewPermissionBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ViewPermissionBody'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ViewPermissionBody'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewPermissionBody'
+          description: ''
+    patch:
+      operationId: permissions_views_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this view permission.
+        required: true
+      tags:
+      - permissions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedViewPermissionBody'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedViewPermissionBody'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedViewPermissionBody'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ViewPermissionBody'
+          description: ''
+    delete:
+      operationId: permissions_views_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this view permission.
+        required: true
+      tags:
+      - permissions
+      responses:
+        '204':
+          description: No response body
+  /report-content/:
+    post:
+      operationId: report_content_create
+      tags:
+      - report-content
+      responses:
+        '200':
+          description: No response body
+  /shared-images/:
+    get:
+      operationId: shared_images_list
+      tags:
+      - shared-images
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SharedImage'
+          description: ''
+    post:
+      operationId: shared_images_create
+      tags:
+      - shared-images
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SharedImage'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SharedImage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SharedImage'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharedImage'
+          description: ''
+  /shared-images/{id}/:
+    get:
+      operationId: shared_images_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this shared image.
+        required: true
+      tags:
+      - shared-images
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharedImage'
+          description: ''
+    put:
+      operationId: shared_images_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this shared image.
+        required: true
+      tags:
+      - shared-images
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SharedImage'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SharedImage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SharedImage'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharedImage'
+          description: ''
+    patch:
+      operationId: shared_images_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this shared image.
+        required: true
+      tags:
+      - shared-images
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSharedImage'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSharedImage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSharedImage'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SharedImage'
+          description: ''
+    delete:
+      operationId: shared_images_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this shared image.
+        required: true
+      tags:
+      - shared-images
+      responses:
+        '204':
+          description: No response body
+  /users/:
+    get:
+      operationId: users_list
+      tags:
+      - users
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UniversityUserDetail'
+          description: ''
+  /users/{id}/:
+    get:
+      operationId: users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this university user.
+        required: true
+      tags:
+      - users
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityUserDetail'
+          description: ''
+  /users/{id}/add-group/:
+    post:
+      operationId: users_add_group_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this university user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityUserDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UniversityUserDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UniversityUserDetail'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityUserDetail'
+          description: ''
+  /users/{id}/remove-group/:
+    post:
+      operationId: users_remove_group_create
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this university user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UniversityUserDetail'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UniversityUserDetail'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UniversityUserDetail'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityUserDetail'
+          description: ''
+  /users/me/:
+    get:
+      operationId: users_me_retrieve
+      tags:
+      - users
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UniversityUserDetail'
+          description: ''
+  /votes/:
+    post:
+      operationId: votes_create
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - votes
+      security:
+      - {}
+      responses:
+        '201':
+          description: No response body
+  /votes/stats/:
+    get:
+      operationId: votes_stats_retrieve
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - votes
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /votes/user-vote/:
+    get:
+      operationId: votes_user_vote_retrieve
+      description: Mixin das einen Logger bereitstellt
+      tags:
+      - votes
+      security:
+      - {}
+      responses:
+        '200':
+          description: No response body
+components:
+  schemas:
+    BlankEnum:
+      enum:
+      - ''
+    ClubEvent:
+      type: object
+      description: Serializer that saves :class:`TranslatedFieldsField` automatically.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+        location:
+          type: string
+          nullable: true
+          maxLength: 255
+        image:
+          type: string
+          format: uuid
+          nullable: true
+        translations:
+          type: string
+      required:
+      - description
+      - id
+      - name
+      - start_date
+    ContentBan:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        is_active:
+          type: boolean
+        banned_at:
+          type: string
+          format: date-time
+          readOnly: true
+        banned_until:
+          type: string
+          format: date-time
+          nullable: true
+        is_permanent:
+          type: string
+          readOnly: true
+        reason:
+          type: integer
+          nullable: true
+        scope:
+          type: integer
+          nullable: true
+        issued_by:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        content_type:
+          type: integer
+        object_id:
+          type: string
+          format: uuid
+        app_label:
+          type: string
+          readOnly: true
+        model:
+          type: string
+          readOnly: true
+      required:
+      - app_label
+      - banned_at
+      - content_type
+      - id
+      - is_permanent
+      - issued_by
+      - model
+      - object_id
+    ContentReport:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        reported_at:
+          type: string
+          format: date-time
+          readOnly: true
+        reporter:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        reason:
+          type: string
+        status:
+          allOf:
+          - $ref: '#/components/schemas/StatusEnum'
+          default: PENDING
+        content_type:
+          type: integer
+        object_id:
+          type: string
+          format: uuid
+        resulting_ban:
+          type: integer
+          readOnly: true
+          nullable: true
+        app_label:
+          type: string
+          readOnly: true
+        model:
+          type: string
+          readOnly: true
+        content_app:
+          type: string
+          writeOnly: true
+        content_model:
+          type: string
+          writeOnly: true
+      required:
+      - app_label
+      - id
+      - model
+      - object_id
+      - reason
+      - reported_at
+      - reporter
+      - resulting_ban
+    GroupTypeEnum:
+      enum:
+      - manual
+      - automatic
+      type: string
+      description: |-
+        * `manual` - Manual
+        * `automatic` - Automatic
+    Image:
+      type: object
+      description: Shared serializer with URL, user info, vote info, permissions,
+        etc.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        author_id:
+          type: string
+          readOnly: true
+        review_id:
+          type: string
+          readOnly: true
+        source:
+          $ref: '#/components/schemas/SourceEnum'
+        can_report:
+          type: string
+          readOnly: true
+        likes:
+          type: string
+          readOnly: true
+        dislikes:
+          type: string
+          readOnly: true
+        net_score:
+          type: string
+          readOnly: true
+        user_vote:
+          type: string
+          readOnly: true
+        is_mine:
+          type: string
+          readOnly: true
+        menu_info:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        anonymous:
+          type: boolean
+        url:
+          type: string
+          readOnly: true
+        image:
+          type: string
+          format: uri
+        review:
+          type: string
+          readOnly: true
+        uploader:
+          type: string
+          format: uuid
+      required:
+      - author
+      - author_id
+      - can_report
+      - created_at
+      - dislikes
+      - id
+      - image
+      - is_mine
+      - likes
+      - menu_info
+      - net_score
+      - review
+      - review_id
+      - uploader
+      - url
+      - user_vote
+    ImageList:
+      type: object
+      description: List serializer using BaseImageSerializer logic.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        author:
+          type: string
+          readOnly: true
+        author_id:
+          type: string
+          readOnly: true
+        review_id:
+          type: string
+          readOnly: true
+        source:
+          $ref: '#/components/schemas/SourceEnum'
+        can_report:
+          type: string
+          readOnly: true
+        likes:
+          type: string
+          readOnly: true
+        dislikes:
+          type: string
+          readOnly: true
+        net_score:
+          type: string
+          readOnly: true
+        user_vote:
+          type: string
+          readOnly: true
+        is_mine:
+          type: string
+          readOnly: true
+        menu_info:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        anonymous:
+          type: boolean
+        url:
+          type: string
+          readOnly: true
+        image:
+          type: string
+          format: uri
+        review:
+          type: string
+          readOnly: true
+        uploader:
+          type: string
+          format: uuid
+      required:
+      - author
+      - author_id
+      - can_report
+      - created_at
+      - dislikes
+      - id
+      - image
+      - is_mine
+      - likes
+      - menu_info
+      - net_score
+      - review
+      - review_id
+      - uploader
+      - url
+      - user_vote
+    Menu:
+      type: object
+      description: Base logic for Canteen Menu serialization.
+      properties:
+        meal_group_id:
+          type: string
+          readOnly: true
+        meal_group:
+          type: string
+          readOnly: true
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        canteen_id:
+          type: string
+          readOnly: true
+        display_name:
+          type: string
+          readOnly: true
+        served_at:
+          type: string
+          format: date
+          readOnly: true
+          nullable: true
+      required:
+      - canteen_id
+      - created_at
+      - display_name
+      - id
+      - meal_group
+      - meal_group_id
+      - served_at
+    MethodEnum:
+      enum:
+      - GET
+      - POST
+      - PUT
+      - PATCH
+      - DELETE
+      type: string
+      description: |-
+        * `GET` - Get
+        * `POST` - Post
+        * `PUT` - Put
+        * `PATCH` - Patch
+        * `DELETE` - Delete
+    NullEnum:
+      enum:
+      - null
+    ObjectPermission:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          type: string
+          format: uuid
+          nullable: true
+        permission_type:
+          $ref: '#/components/schemas/PermissionTypeEnum'
+        content_type:
+          type: string
+          title: Python model class name
+        object_id:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        group:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - content_type
+      - id
+      - object_id
+      - permission_type
+    PaginatedReviewList:
+      type: object
+      required:
+      - results
+      properties:
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?cursor=cD00ODY%3D"
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?cursor=cj0xJnA9NDg3
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Review'
+    PatchedClubEvent:
+      type: object
+      description: Serializer that saves :class:`TranslatedFieldsField` automatically.
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          readOnly: true
+        description:
+          type: string
+          readOnly: true
+        start_date:
+          type: string
+          format: date-time
+        end_date:
+          type: string
+          format: date-time
+          nullable: true
+        location:
+          type: string
+          nullable: true
+          maxLength: 255
+        image:
+          type: string
+          format: uuid
+          nullable: true
+        translations:
+          type: string
+    PatchedContentBan:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        is_active:
+          type: boolean
+        banned_at:
+          type: string
+          format: date-time
+          readOnly: true
+        banned_until:
+          type: string
+          format: date-time
+          nullable: true
+        is_permanent:
+          type: string
+          readOnly: true
+        reason:
+          type: integer
+          nullable: true
+        scope:
+          type: integer
+          nullable: true
+        issued_by:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        content_type:
+          type: integer
+        object_id:
+          type: string
+          format: uuid
+        app_label:
+          type: string
+          readOnly: true
+        model:
+          type: string
+          readOnly: true
+    PatchedMenu:
+      type: object
+      description: Base logic for Canteen Menu serialization.
+      properties:
+        meal_group_id:
+          type: string
+          readOnly: true
+        meal_group:
+          type: string
+          readOnly: true
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        canteen_id:
+          type: string
+          readOnly: true
+        display_name:
+          type: string
+          readOnly: true
+        served_at:
+          type: string
+          format: date
+          readOnly: true
+          nullable: true
+    PatchedObjectPermission:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        user:
+          type: string
+          format: uuid
+          nullable: true
+        permission_type:
+          $ref: '#/components/schemas/PermissionTypeEnum'
+        content_type:
+          type: string
+          title: Python model class name
+        object_id:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        group:
+          type: string
+          format: uuid
+          nullable: true
+    PatchedReview:
+      type: object
+      description: Mixin das einen Logger bereitstellt
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        canteen_id:
+          type: string
+          writeOnly: true
+        menu_id:
+          type: string
+          format: uuid
+          readOnly: true
+        served_at:
+          type: string
+          format: date
+          writeOnly: true
+        rating:
+          type: integer
+          maximum: 5
+          minimum: 1
+        message:
+          type: string
+        author:
+          type: string
+          readOnly: true
+        author_id:
+          type: string
+          readOnly: true
+        likes:
+          type: string
+          readOnly: true
+        dislikes:
+          type: string
+          readOnly: true
+        net_score:
+          type: string
+          readOnly: true
+        user_vote:
+          type: string
+          readOnly: true
+        menu_info:
+          type: string
+          readOnly: true
+        is_mine:
+          type: string
+          readOnly: true
+        can_edit:
+          type: string
+          readOnly: true
+        can_report:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        anonymous:
+          type: boolean
+        image:
+          type: string
+          readOnly: true
+    PatchedSharedImage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        file:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          nullable: true
+          maxLength: 100
+        description:
+          type: string
+          nullable: true
+          maxLength: 500
+    PatchedUniversityGroupBody:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+    PatchedViewPermissionBody:
+      type: object
+      properties:
+        view_name:
+          type: string
+          maxLength: 255
+        method:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/MethodEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        user:
+          type: string
+          format: uuid
+          nullable: true
+        group:
+          type: string
+          format: uuid
+          nullable: true
+    PermissionTypeEnum:
+      enum:
+      - view
+      - edit
+      type: string
+      description: |-
+        * `view` - View
+        * `edit` - Edit
+    Review:
+      type: object
+      description: Mixin das einen Logger bereitstellt
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        canteen_id:
+          type: string
+          writeOnly: true
+        menu_id:
+          type: string
+          format: uuid
+          readOnly: true
+        served_at:
+          type: string
+          format: date
+          writeOnly: true
+        rating:
+          type: integer
+          maximum: 5
+          minimum: 1
+        message:
+          type: string
+        author:
+          type: string
+          readOnly: true
+        author_id:
+          type: string
+          readOnly: true
+        likes:
+          type: string
+          readOnly: true
+        dislikes:
+          type: string
+          readOnly: true
+        net_score:
+          type: string
+          readOnly: true
+        user_vote:
+          type: string
+          readOnly: true
+        menu_info:
+          type: string
+          readOnly: true
+        is_mine:
+          type: string
+          readOnly: true
+        can_edit:
+          type: string
+          readOnly: true
+        can_report:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        anonymous:
+          type: boolean
+        image:
+          type: string
+          readOnly: true
+      required:
+      - author
+      - author_id
+      - can_edit
+      - can_report
+      - created_at
+      - dislikes
+      - id
+      - image
+      - is_mine
+      - likes
+      - menu_id
+      - menu_info
+      - net_score
+      - user_vote
+    SharedImage:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        file:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          nullable: true
+          maxLength: 100
+        description:
+          type: string
+          nullable: true
+          maxLength: 500
+      required:
+      - file
+      - id
+    SourceEnum:
+      enum:
+      - review
+      - gallery
+      type: string
+      description: |-
+        * `review` - Review
+        * `gallery` - Gallery
+    StatusEnum:
+      enum:
+      - PENDING
+      - REVIEWED
+      - ACTION_TAKEN
+      - DISMISSED
+      type: string
+      description: |-
+        * `PENDING` - Pending
+        * `REVIEWED` - Reviewed
+        * `ACTION_TAKEN` - Action Taken
+        * `DISMISSED` - Dismissed
+    UniversityGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        group_type:
+          $ref: '#/components/schemas/GroupTypeEnum'
+      required:
+      - id
+      - name
+    UniversityGroupBody:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 255
+      required:
+      - name
+    UniversityGroupDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        created_by:
+          allOf:
+          - $ref: '#/components/schemas/UniversityUser'
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        group_type:
+          $ref: '#/components/schemas/GroupTypeEnum'
+      required:
+      - created_by
+      - id
+      - name
+    UniversityUser:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        uid:
+          type: string
+          maxLength: 255
+        display_name:
+          type: string
+          nullable: true
+          maxLength: 255
+      required:
+      - id
+      - uid
+    UniversityUserDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        uid:
+          type: string
+          maxLength: 255
+        display_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        university_groups:
+          type: string
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - uid
+      - university_groups
+    ViewPermission:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        view_name:
+          type: string
+          maxLength: 255
+        method:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/MethodEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        user:
+          allOf:
+          - $ref: '#/components/schemas/UniversityUser'
+          readOnly: true
+        group:
+          allOf:
+          - $ref: '#/components/schemas/UniversityGroup'
+          readOnly: true
+        created_by:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+      required:
+      - created_by
+      - group
+      - id
+      - method
+      - user
+      - view_name
+    ViewPermissionBody:
+      type: object
+      properties:
+        view_name:
+          type: string
+          maxLength: 255
+        method:
+          nullable: true
+          oneOf:
+          - $ref: '#/components/schemas/MethodEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+          - $ref: '#/components/schemas/NullEnum'
+        user:
+          type: string
+          format: uuid
+          nullable: true
+        group:
+          type: string
+          format: uuid
+          nullable: true
+      required:
+      - group
+      - method
+      - user
+      - view_name
